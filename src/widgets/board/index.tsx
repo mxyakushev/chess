@@ -16,7 +16,7 @@ export const BoardComponent = () => {
 
   return (
     <div
-      className={`bg-white rounded ${
+      className={`bg-white dark:bg-gray-300 rounded ${
         boardStyle === BoardStyle.OUTSIDE_BOARD ? 'pt-2 pr-2 pl-4 pb-4 sm:pl-7 sm:pb-7' : 'p-2'
       }`}
     >
