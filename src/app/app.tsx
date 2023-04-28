@@ -1,3 +1,9 @@
 import './styles/tailwind.css'
 
-export const Application = () => <div className='font-bold'>hello</div>
+import { Game } from '#/pages'
+
+export const Application = () => (
+  <>
+    <Game />
+  </>
+)
