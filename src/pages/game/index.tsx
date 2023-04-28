@@ -31,7 +31,7 @@ export const Game = () => {
         }`}
       >
         <button
-          className='absolute top-5 right-5 bg-[#B7C0D8] p-1.5 rounded-full text-[#34364C] dark:bg-[#bfc9e0]'
+          className='absolute top-5 right-5 bg-[#B7C0D8] p-1.5 rounded-full text-[#34364C] dark:text-black dark:bg-[#bfc9e0]'
           onClick={() => toggleModal(true)}
         >
           <FiSettings size={32} />

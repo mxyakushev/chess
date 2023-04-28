@@ -14,7 +14,9 @@ export const NumberLabel = ({ cell }: NumberLabelProps) => {
   if (!isNumberLabelVisible) return null
 
   return (
-    <div className={`number-label absolute text-[10px] sm:text-sm font-bold text-gray-600 ${numberLabelPosition}`}>
+    <div
+      className={`number-label absolute text-[10px] sm:text-sm font-bold text-gray-600 dark:text-black ${numberLabelPosition}`}
+    >
       {cell.y}
     </div>
   )
