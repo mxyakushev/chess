@@ -17,7 +17,9 @@ export const LetterLabel = ({ cell }: LetterLabelProps) => {
   if (!isLetterLabelVisible) return null
 
   return (
-    <div className={`letter-label absolute text-[10px] sm:text-sm font-bold text-gray-600 ${letterLabelPosition}`}>
+    <div
+      className={`letter-label absolute text-[10px] sm:text-sm font-bold text-gray-600 dark:text-black ${letterLabelPosition}`}
+    >
       {chessAlphabet[cell.x]}
     </div>
   )
