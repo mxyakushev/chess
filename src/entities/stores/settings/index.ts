@@ -8,11 +8,13 @@ type TTheme = 'light' | 'dark'
 
 type TState = {
   theme: TTheme
+  sound: boolean
   boardStyle: BoardStyle
 }
 
 type TActions = {
   toggleTheme: () => void
+  toggleSound: () => void
   setStyle: ({ style }: { style: BoardStyle }) => void
 }
 
@@ -22,7 +24,11 @@ export const useSettings = create(
   persist<TStore>(
     (set, get) => ({
       theme: 'light',
+      sound: true,
       boardStyle: BoardStyle.NO_STYLES,
+      toggleSound: () => {
+        set({ sound: !get().sound })
+      },
       toggleTheme: () => {
         set({ theme: get().theme === 'dark' ? 'light' : 'dark' })
       },

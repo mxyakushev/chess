@@ -1,8 +1,7 @@
 import { BiAtom, BiGhost } from 'react-icons/bi'
 import { CgClose, CgCloseO } from 'react-icons/cg'
-import { FiMusic } from 'react-icons/fi'
 import { ImSun } from 'react-icons/im'
-import { TbMoon } from 'react-icons/tb'
+import { TbMoon, TbMusic, TbMusicOff } from 'react-icons/tb'
 
 import { modalSelectors, settingsSelectors } from '#/entities'
 import { BoardStyle, useAudio } from '#/shared'
@@ -13,6 +12,8 @@ export const SettingsModal = () => {
   const toggleModal = modalSelectors.use.toggleModal()
   const setStyle = settingsSelectors.use.setStyle()
   const toggleTheme = settingsSelectors.use.toggleTheme()
+  const toggleSound = settingsSelectors.use.toggleSound()
+  const sound = settingsSelectors.use.sound()
   const theme = settingsSelectors.use.theme()
   const style = settingsSelectors.use.boardStyle()
   const audio = useAudio()
@@ -69,9 +70,12 @@ export const SettingsModal = () => {
               <h2 className='font-bold text-2xl mb-4 text-center'>SOUND</h2>
               <button
                 className='rounded-lg bg-gray-200 dark:bg-gray-700 p-2 w-full flex justify-center font-bold transition duration-300'
-                onClick={() => audio.play()}
+                onClick={() => {
+                  audio.play()
+                  toggleSound()
+                }}
               >
-                <FiMusic size={40} />
+                {sound ? <TbMusicOff size={40} /> : <TbMusic size={40} />}
               </button>
             </div>
             <div className='w-full'>
