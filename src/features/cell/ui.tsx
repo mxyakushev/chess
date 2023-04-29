@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react'
 
 import { Cell, settingsSelectors } from '#/entities'
-import { LetterLabel, NumberLabel, useBoardInteraction } from '#/shared'
+import { LetterLabel, NumberLabel, useAudio, useBoardInteraction } from '#/shared'
 
 interface CellProps {
   cell: Cell
@@ -11,6 +11,7 @@ interface CellProps {
 export const CellComponent = memo(({ cell, selected }: CellProps) => {
   const { handleClick, cellAvailable, cellFigure } = useBoardInteraction(cell)
   const theme = settingsSelectors.use.theme()
+  const sound = useAudio('/audio/move-self.mp3')
 
   const setCellColor = useCallback(() => {
     const colorMap = {
@@ -33,7 +34,12 @@ export const CellComponent = memo(({ cell, selected }: CellProps) => {
       style={{
         background: selected ? 'rgba(123,97,255,1)' : setCellColor()
       }}
-      onClick={handleClick}
+      onClick={() => {
+        if (cell.available) {
+          sound.play()
+        }
+        handleClick()
+      }}
     >
       {cellAvailable && (
         <div className='w-[12px] h-[12px] sm:w-[20px] sm:h-[20px] bg-[rgba(123,97,255,1)] rounded-full' />

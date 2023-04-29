@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { settingsSelectors } from '#/entities'
 
 type Options = {
   volume?: number
@@ -7,17 +7,35 @@ type Options = {
 
 const DEFAULT_MUSIC_PATH = '/audio/action-sound.mp3'
 
-export const useAudio = (src: string = DEFAULT_MUSIC_PATH, options: Options = {}) => {
+const audioPool = (() => {
+  const pool: HTMLAudioElement[] = []
+
+  const getAudio = (): HTMLAudioElement => {
+    const audio = pool.find(a => a.paused)
+
+    if (audio) {
+      return audio
+    } else {
+      const newAudio = new Audio()
+      pool.push(newAudio)
+      return newAudio
+    }
+  }
+
+  return { getAudio }
+})()
+
+export const useAudio = (src: string = DEFAULT_MUSIC_PATH, options: Options = {}): { play: () => void } => {
   const { volume = 1, playbackRate = 1 } = options
-  const sound = useRef(new Audio(src))
+  const isPlaying = settingsSelectors.use.sound()
 
-  useEffect(() => {
-    sound.current.playbackRate = playbackRate
-  }, [playbackRate])
+  const play = () => {
+    const sound = audioPool.getAudio()
+    sound.src = src
+    sound.playbackRate = playbackRate
+    sound.volume = isPlaying ? volume : 0
+    sound.play()
+  }
 
-  useEffect(() => {
-    sound.current.volume = volume
-  }, [volume])
-
-  return sound.current
+  return { play }
 }
