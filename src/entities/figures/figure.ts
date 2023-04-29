@@ -17,6 +17,7 @@ export class Figure {
   cell: Cell
   name: FigureNames
   id: number
+  hasMoved: boolean
 
   constructor(color: Colors, cell: Cell) {
     this.color = color
@@ -25,6 +26,7 @@ export class Figure {
     this.logo = null
     this.name = FigureNames.FIGURE
     this.id = Math.random()
+    this.hasMoved = false
   }
 
   canMove(target: Cell): boolean {
@@ -33,5 +35,6 @@ export class Figure {
   }
   moveFigure(target: Cell) {
     console.log(target)
+    this.hasMoved = true
   }
 }

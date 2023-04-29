@@ -1,4 +1,4 @@
-import { Cell, Figure, FigureNames } from '#/entities'
+import { Cell, Figure, FigureNames, Rook } from '#/entities'
 import { Colors } from '#/shared'
 
 export class King extends Figure {
@@ -17,7 +17,33 @@ export class King extends Figure {
       }
     }
 
+    if (deltaY === 0 && (deltaX === 2 || deltaX === 3) && !this.hasMoved) {
+      return this.canCastle(target)
+    }
+
     return false
+  }
+
+  canCastle(target: Cell): boolean {
+    const board = this.cell.board
+    const y = this.cell.y
+    const x = target.x < this.cell.x ? 0 : 7
+
+    const rook = board.getCell(x, y).figure
+    if (!rook || rook.name !== FigureNames.ROOK || rook.color !== this.color || rook.hasMoved) {
+      return false
+    }
+
+    const min = Math.min(this.cell.x, x)
+    const max = Math.max(this.cell.x, x)
+    for (let i = min + 1; i < max; i++) {
+      const cell = board.getCell(i, y)
+      if (!cell.isEmpty() || this.isCellUnderAttack(cell)) {
+        return false
+      }
+    }
+
+    return true
   }
 
   isCellUnderAttack(target: Cell): boolean {
@@ -32,5 +58,23 @@ export class King extends Figure {
       }
     }
     return false
+  }
+
+  moveFigure(target: Cell) {
+    if (Math.abs(target.x - this.cell.x) === 2 && !this.hasMoved) {
+      const board = this.cell.board
+      const y = this.cell.y
+      const rookX = target.x < this.cell.x ? 0 : 7
+
+      const rook = board.getCell(rookX, y).figure
+      if (rook && rook instanceof Rook) {
+        const newRookX = rookX === 0 ? 3 : 5
+        const newRookCell = board.getCell(newRookX, y)
+        newRookCell.setFigure(rook)
+        board.getCell(rookX, y).figure = null
+      }
+    }
+
+    super.moveFigure(target)
   }
 }
