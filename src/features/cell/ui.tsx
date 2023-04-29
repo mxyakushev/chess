@@ -8,7 +8,7 @@ interface CellProps {
   selected: boolean
 }
 
-export const CellComponent = memo(({ cell, selected }: CellProps) => {
+export const BoardCell = memo(({ cell, selected }: CellProps) => {
   const { handleClick, cellAvailable, cellFigure } = useBoardInteraction(cell)
   const theme = settingsSelectors.use.theme()
   const sound = useAudio('/audio/move-self.mp3')
@@ -51,4 +51,4 @@ export const CellComponent = memo(({ cell, selected }: CellProps) => {
   )
 })
 
-CellComponent.displayName = 'CellComponent'
+BoardCell.displayName = 'BoardCell'

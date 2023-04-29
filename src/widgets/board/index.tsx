@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
 import { boardSelectors, settingsSelectors } from '#/entities'
-import { RowComponent } from '#/features'
+import { Row } from '#/features'
 import { BoardStyle } from '#/shared'
 
-export const BoardComponent = () => {
+export const GameBoard = () => {
   const selectedCell = boardSelectors.use.selectedCell()
   const board = boardSelectors.use.board()
   const highlight = boardSelectors.use.highlight()
@@ -22,7 +22,7 @@ export const BoardComponent = () => {
     >
       <div className='w-[320px] h-[320px] sm:w-[512px] sm:h-[512px] flex flex-wrap'>
         {board.cells.map(row => (
-          <RowComponent key={Math.random()} row={row} />
+          <Row key={Math.random()} row={row} />
         ))}
       </div>
     </div>
