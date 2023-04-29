@@ -1,40 +1,52 @@
 import { settingsSelectors } from '#/entities'
 
-type Options = {
+interface Options {
   volume?: number
   playbackRate?: number
 }
 
 const DEFAULT_MUSIC_PATH = '/audio/action-sound.mp3'
 
-const audioPool = (() => {
-  const pool: HTMLAudioElement[] = []
+class AudioPool {
+  private pool: HTMLAudioElement[] = []
 
-  const getAudio = (): HTMLAudioElement => {
-    const audio = pool.find(a => a.paused)
+  public getAudio(): HTMLAudioElement {
+    const audio = this.pool.find(a => a.paused)
 
-    if (audio) {
-      return audio
-    } else {
-      const newAudio = new Audio()
-      pool.push(newAudio)
-      return newAudio
-    }
+    return audio ?? this.createAudio()
   }
 
-  return { getAudio }
-})()
+  private createAudio(): HTMLAudioElement {
+    const newAudio = new Audio()
+    this.pool.push(newAudio)
+    return newAudio
+  }
+}
+
+const audioPool = new AudioPool()
 
 export const useAudio = (src: string = DEFAULT_MUSIC_PATH, options: Options = {}): { play: () => void } => {
-  const { volume = 1, playbackRate = 1 } = options
   const isPlaying = settingsSelectors.use.sound()
+  const volume = options.volume ?? 1
+  const playbackRate = options.playbackRate ?? 1
 
-  const play = () => {
+  const initializeAudio = (): HTMLAudioElement | null => {
+    if (!isPlaying) return null
+
     const sound = audioPool.getAudio()
     sound.src = src
     sound.playbackRate = playbackRate
-    sound.volume = isPlaying ? volume : 0
-    sound.play()
+    sound.volume = volume
+
+    return sound
+  }
+
+  const play = () => {
+    const sound = initializeAudio()
+
+    sound?.play().catch(error => {
+      console.log('Audio play error:', error)
+    })
   }
 
   return { play }
