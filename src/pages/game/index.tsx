@@ -1,8 +1,7 @@
+import { boardSelectors, modalSelectors, playerSelectors, settingsSelectors } from 'entities'
 import { useEffect } from 'react'
 import { FiSettings } from 'react-icons/fi'
 
-import { boardSelectors, modalSelectors, playerSelectors } from '#/entities'
-import { themeSelectors } from '#/entities/stores/theme'
 import { Colors } from '#/shared'
 import { BoardComponent, SettingsModal } from '#/widgets'
 
@@ -11,7 +10,7 @@ export const Game = () => {
   const modal = modalSelectors.use.modal()
   const toggleModal = modalSelectors.use.toggleModal()
   const restart = boardSelectors.use.restart()
-  const theme = themeSelectors.use.theme()
+  const theme = settingsSelectors.use.theme()
 
   useEffect(() => {
     restart()

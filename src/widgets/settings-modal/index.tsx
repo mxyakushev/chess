@@ -4,17 +4,17 @@ import { FiMusic } from 'react-icons/fi'
 import { ImSun } from 'react-icons/im'
 import { TbMoon } from 'react-icons/tb'
 
-import { boardSelectors, modalSelectors, themeSelectors } from '#/entities'
+import { modalSelectors, settingsSelectors } from '#/entities'
 import { BoardStyle } from '#/shared'
 
 const Overlay = () => <div className='fixed inset-0 w-full h-full bg-black bg-opacity-50' />
 
 export const SettingsModal = () => {
   const toggleModal = modalSelectors.use.toggleModal()
-  const setStyle = boardSelectors.use.setStyle()
-  const toggleTheme = themeSelectors.use.toggleTheme()
-  const theme = themeSelectors.use.theme()
-  const style = boardSelectors.use.boardStyle()
+  const setStyle = settingsSelectors.use.setStyle()
+  const toggleTheme = settingsSelectors.use.toggleTheme()
+  const theme = settingsSelectors.use.theme()
+  const style = settingsSelectors.use.boardStyle()
 
   const handleStyleClick = (style: BoardStyle) => {
     setStyle({ style })

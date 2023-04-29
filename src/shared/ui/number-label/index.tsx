@@ -1,4 +1,4 @@
-import { boardSelectors, Cell } from '#/entities'
+import { Cell, settingsSelectors } from '#/entities'
 import { BoardStyle } from '#/shared'
 
 interface NumberLabelProps {
@@ -6,7 +6,7 @@ interface NumberLabelProps {
 }
 
 export const NumberLabel = ({ cell }: NumberLabelProps) => {
-  const boardStyle = boardSelectors.use.boardStyle()
+  const boardStyle = settingsSelectors.use.boardStyle()
   const isNumberLabelVisible = cell.x === 0 && boardStyle !== BoardStyle.NO_STYLES
   const numberLabelPosition =
     boardStyle === BoardStyle.INSIDE_BOARD ? 'top-0.5 left-1' : 'top-3 sm:top-5 -left-3 sm:-left-4'

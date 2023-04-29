@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react'
 
-import { Cell, themeSelectors } from '#/entities'
+import { Cell, settingsSelectors } from '#/entities'
 import { LetterLabel, NumberLabel, useBoardInteraction } from '#/shared'
 
 interface CellProps {
@@ -10,7 +10,7 @@ interface CellProps {
 
 export const CellComponent = memo(({ cell, selected }: CellProps) => {
   const { handleClick, cellAvailable, cellFigure } = useBoardInteraction(cell)
-  const theme = themeSelectors.use.theme()
+  const theme = settingsSelectors.use.theme()
 
   const setCellColor = useCallback(() => {
     const colorMap = {

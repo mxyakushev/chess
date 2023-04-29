@@ -1,4 +1,4 @@
-import { boardSelectors, Cell } from '#/entities'
+import { Cell, settingsSelectors } from '#/entities'
 import { BoardStyle } from '#/shared'
 
 interface LetterLabelProps {
@@ -6,7 +6,7 @@ interface LetterLabelProps {
 }
 
 export const LetterLabel = ({ cell }: LetterLabelProps) => {
-  const boardStyle = boardSelectors.use.boardStyle()
+  const boardStyle = settingsSelectors.use.boardStyle()
   const chessAlphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
   const isLetterLabelVisible = cell.y === 7 && boardStyle !== BoardStyle.NO_STYLES
   const letterLabelPosition =

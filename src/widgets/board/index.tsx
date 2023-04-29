@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { boardSelectors } from '#/entities'
+import { boardSelectors, settingsSelectors } from '#/entities'
 import { RowComponent } from '#/features'
 import { BoardStyle } from '#/shared'
 
@@ -8,7 +8,7 @@ export const BoardComponent = () => {
   const selectedCell = boardSelectors.use.selectedCell()
   const board = boardSelectors.use.board()
   const highlight = boardSelectors.use.highlight()
-  const boardStyle = boardSelectors.use.boardStyle()
+  const boardStyle = settingsSelectors.use.boardStyle()
 
   useEffect(() => {
     highlight({ selectedCell })
