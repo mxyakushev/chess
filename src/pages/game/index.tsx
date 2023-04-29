@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { FiSettings } from 'react-icons/fi'
 
 import { Colors, useAudio } from '#/shared'
-import { BoardComponent, SettingsModal } from '#/widgets'
+import { GameBoard, SettingsModal } from '#/widgets'
 
 export const Game = () => {
   const setCurrentPlayer = playerSelectors.use.setPlayer()
@@ -39,7 +39,7 @@ export const Game = () => {
         >
           <FiSettings size={32} />
         </button>
-        <BoardComponent />
+        <GameBoard />
       </div>
       {modal && <SettingsModal />}
     </>

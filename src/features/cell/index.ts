@@ -1,1 +1,1 @@
-export { CellComponent } from './ui'
+export { BoardCell } from './ui'
