@@ -1,4 +1,4 @@
-import { Cell } from '#/entities'
+import { Cell, King } from '#/entities'
 import { Colors } from '#/shared'
 
 export enum FigureNames {
@@ -36,5 +36,16 @@ export class Figure {
   moveFigure(target: Cell) {
     console.log(target)
     this.hasMoved = true
+  }
+  getKingInstance(): King | null {
+    const board = this.cell.board
+    for (const row of board.cells) {
+      for (const cell of row) {
+        if (cell.figure && cell.figure.color === this.color && cell.figure instanceof King) {
+          return cell.figure as King
+        }
+      }
+    }
+    return null
   }
 }

@@ -50,7 +50,7 @@ export class King extends Figure {
     const board = this.cell.board
     for (const row of board.cells) {
       for (const cell of row) {
-        if (cell.figure && cell.figure.color !== this.color) {
+        if (cell.figure && cell.figure.color !== this.color && !(cell.figure instanceof King)) {
           if (cell.figure.canMove(target)) {
             return true
           }
@@ -60,6 +60,20 @@ export class King extends Figure {
     return false
   }
 
+  isKingUnderAttack(): boolean {
+    const kingCell = this.cell
+    const board = kingCell.board
+    for (const row of board.cells) {
+      for (const cell of row) {
+        if (cell.figure && cell.figure.color !== this.color) {
+          if (cell.figure.canMove(kingCell)) {
+            return true
+          }
+        }
+      }
+    }
+    return false
+  }
   moveFigure(target: Cell) {
     if (Math.abs(target.x - this.cell.x) === 2 && !this.hasMoved) {
       const board = this.cell.board
